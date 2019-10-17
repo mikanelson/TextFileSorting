@@ -18,7 +18,7 @@ import java.util.Scanner;
  * Custom comparator used to sort elements of a collection by their length.
  * 
  * @author mn
- * @version 1.0
+ * @version 1.1
  * @since 1.0
  */
 class SortByLength implements Comparator<String> {
@@ -39,7 +39,7 @@ class SortByLength implements Comparator<String> {
  * then writing the list to another file.
  * 
  * @author mn
- * @version 1.0
+ * @version 1.1
  * @since 1.0
  */
 public class Main {
@@ -51,6 +51,7 @@ public class Main {
     System.out.println("Please provide a file path:");
     Scanner in = new Scanner(System.in);
     String filePath = in.nextLine().replace("\\", "\\\\");
+    filePath = filePath.replace('"', ' ').trim();
     filePath.replace("\"","");
     in.close();
     return filePath;
