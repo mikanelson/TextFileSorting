@@ -163,6 +163,7 @@ public class Main {
       System.out.println("Error printing file.");
       e.printStackTrace();
     }
+    System.out.println("Program has finished.");
   }
   
   /**
