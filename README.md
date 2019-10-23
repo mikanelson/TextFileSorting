@@ -22,3 +22,9 @@ Download: https://netbeans.apache.org/download/index.html
 3. In Command Prompt, enter "java -jar name.jar". If you are running the included jar, you should enter "java -jar Sort.jar"
 4. Enter the file path to the text file to be sorted.
 5. A new file will be created in the same directory as the jar named sortedcollection. This is the output file and contains the list of sorted names.
+#### Testing
+1. Open Command Prompt
+2. Navigate to the directory containing the test jar.
+3. In Command Prompt, enter "run". If this fails, enter "run.bat".
+4. The program will execute the Sort jar on the included Sort Me text file. It will compare the output file from Sort (sortedcollection.txt) to sortedtext.txt and create a new file named output.txt that shows any changes.
+5. If you wish, you may edit the sortedtext.txt file to force differences between actual output and expected output.
