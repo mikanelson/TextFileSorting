@@ -175,10 +175,19 @@ public class Main {
         for (int comparedWord = selectedWord + 1; comparedWord < namesTrimmed.size(); comparedWord++) {
           // if the word is a longer length, sort all the words the same size as the selected word
           // aka all words from selected and before compared
-          if (namesTrimmed.get(comparedWord).length() > namesTrimmed.get(selectedWord).length()) {
-            sortListAlphabetically(namesTrimmed.subList(selectedWord, comparedWord));
-            break;
-          }
+          if (sortType == 'a') {
+            if (namesTrimmed.get(comparedWord).length() > namesTrimmed.get(selectedWord).length()) {
+              sortListAlphabetically(namesTrimmed.subList(selectedWord, comparedWord));
+              break;
+            }
+          } else {
+            // if the word is a shorter length, sort all the words the same size as the selected word
+            // aka all words from selected and before compared
+            if (namesTrimmed.get(comparedWord).length() < namesTrimmed.get(selectedWord).length()) {
+              sortListAlphabetically(namesTrimmed.subList(selectedWord, comparedWord));
+              break;
+            }
+          }    
         }
       } 
     } catch (Exception e) {
@@ -192,7 +201,7 @@ public class Main {
       e.printStackTrace();
     }
     System.out.println("Program has finished.");
-  }
+  }     
   
   /**
    * Calls the method responsible for main logic.
