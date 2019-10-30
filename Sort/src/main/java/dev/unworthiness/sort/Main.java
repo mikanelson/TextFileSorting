@@ -18,10 +18,10 @@ import java.util.Scanner;
  * Custom comparator used to sort elements of a collection by their length.
  * 
  * @author mn
- * @version 1.2
+ * @version 1.3
  * @since 1.0
  */
-class SortByLength implements Comparator<String> {
+class SortByLengthAscending implements Comparator<String> {
   /**
    * Returns the difference in the length between two strings
    * 
@@ -35,11 +35,31 @@ class SortByLength implements Comparator<String> {
 }
 
 /**
+ * Custom comparator used to sort elements of a collection by their length.
+ * 
+ * @author mn
+ * @version 1.3
+ * @since 1.3
+ */
+class SortByLengthDescending implements Comparator<String> {
+  /**
+   * Returns the difference in the length between two strings
+   * 
+   * @param stringOne the first string.
+   * @param stringTwo the string being compared.
+   * @return string two's length minus string one's length.
+   */
+  public int compare(String stringOne, String stringTwo) {
+      return stringTwo.length() - stringOne.length();
+  }
+}
+
+/**
  * Contains all logic for importing a list from a file, sorting the list, and 
  * then writing the list to another file.
  * 
  * @author mn
- * @version 1.2
+ * @version 1.3
  * @since 1.0
  */
 public class Main {
@@ -98,8 +118,8 @@ public class Main {
    * @param toWrite the collection to write to the file.
    * @throws Exception if there is an error writing the collection to a file.
    */
-  private static <T> void writeCollectionToFile(Collection<T> toWrite) throws Exception {
-    BufferedWriter writer = new BufferedWriter(new FileWriter("sortedcollection.txt"));
+  private static <T> void writeCollectionToFile(Collection<T> toWrite, String fileName) throws Exception {
+    BufferedWriter writer = new BufferedWriter(new FileWriter(fileName));
     Iterator i = toWrite.iterator(); 
     while (i.hasNext()) {
       String line = (String) i.next();
@@ -114,9 +134,14 @@ public class Main {
    * Sorts a list of strings from smallest to largest length.
    * 
    * @param toSort the list to sort.
+   * @param sortType a for ascending, anything else for descending
    */
-  private static void sortListBySize(List<String> toSort) {
-    Collections.sort(toSort, new SortByLength());
+  private static void sortListBySize(List<String> toSort, char sortType) {
+    if (sortType == 'a') {
+      Collections.sort(toSort, new SortByLengthAscending());
+    } else {
+      Collections.sort(toSort, new SortByLengthDescending());
+    }   
   }
 
   /**
@@ -136,13 +161,15 @@ public class Main {
    * a list. If this is successful, the list is sorted by size and then alphabetically for each
    * size. The list is then written to a text file as output.
    * </p>
+   * 
+   * @param sortType a for ascending, anything else for descending
    */
-  private static void sortListSizeAlphabetically() {
+  private static void sortListSizeAlphabetically(char sortType, String fileName) {
     File nameList = retrieveFile("Sort Me.txt");
     List<String> namesTrimmed = null;
     try {
       namesTrimmed = importData(nameList);
-      sortListBySize(namesTrimmed);
+      sortListBySize(namesTrimmed, sortType);
       // compares each word with the words of the same size after it
       for (int selectedWord = 0; selectedWord < namesTrimmed.size() - 1; selectedWord++) {
         for (int comparedWord = selectedWord + 1; comparedWord < namesTrimmed.size(); comparedWord++) {
@@ -159,7 +186,7 @@ public class Main {
       e.printStackTrace();
     }
     try {
-      writeCollectionToFile(namesTrimmed);
+      writeCollectionToFile(namesTrimmed, fileName);
     } catch (Exception e) {
       System.out.println("Error printing file.");
       e.printStackTrace();
@@ -173,6 +200,15 @@ public class Main {
    * @param args Default.
    */
   public static void main(String[] args) {
-    sortListSizeAlphabetically();
+    // sanity checks
+    char sortType = 'd';
+    String fileName = "sortedcollection.txt";
+    if (args.length == 2) {
+      sortType = args[0].toLowerCase().charAt(0);
+      fileName = args[1];
+    } else {
+      System.out.println("Invalid number of arguments provided. Assuming descending sort.");
+    }
+    sortListSizeAlphabetically(sortType, fileName);
   }
 }
