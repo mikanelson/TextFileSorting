@@ -2,4 +2,4 @@ language: java
 script:
   - cd Sort
   - cd dist
-  - run.bat
+  - run
