@@ -1,4 +1,6 @@
 language: java
+jdk:
+  - oraclejdk13
 script:
   - cd Sort
   - cd dist
