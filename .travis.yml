@@ -2,4 +2,5 @@ language: java
 script:
   - cd Sort
   - cd dist
+  - chmod +x test.sh
   - ./test.sh
