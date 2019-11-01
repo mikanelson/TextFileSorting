@@ -9,4 +9,3 @@
    descending_result=$?
    if [ ascending_result && descending_result ] then
       exit 0
-   fi
