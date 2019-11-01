@@ -7,4 +7,7 @@
    java -jar Sort.jar descending SortedDescendingGenerated.txt
    diff SortedDescendingGenerated.txt SortedDescending.txt
    descending_result=$?
-   exit ascending_result && descending_result
+   if [ ascending_result && descending_result ]; then
+      exit 0
+   else
+      exit 1
